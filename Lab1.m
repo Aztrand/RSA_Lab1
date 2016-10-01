@@ -95,3 +95,53 @@ title('U/V')
 
 %3.1 - Joint Distribution and Correlation
 
+N=2000;
+x=randn([1 N]);
+u=rand([1 N]);
+
+z=@(a) x.*a+sqrt(1-a.^2).*y;
+
+zv = zeros(4,N);
+zv(1,:) = z(0.5);
+zv(2,:) = z(-0.5);
+zv(3,:) = z(0.9);
+zv(4,:) = z(-0.9);
+
+for i=1:4
+    figure()
+    plot(x,zv(i,:),'.')
+end
+
+figure()
+hist(zv(1,:),10000)
+
+%%
+%3.2 - Conditional Distribution.
+
+N=2000;
+x=randn([1 N]);
+u=rand([1 N]);
+
+z=@(a) x.*a+sqrt(1-a.^2).*y;
+zv = z(0.7);
+
+dz = 0.1;
+zh = 0.5;
+i=0;
+X=[];
+Z=[];
+for k=1:2000
+    if zv(k)>zh-dz && zv(k)<zh+dz
+        %plot(x(k),y(k),'.')
+        i=i+1;
+        %hold on
+        X(i)=x(k); 
+        Z(i)=zv(k);
+    end
+end
+
+subplot(1,2,1)
+plot(Z,X,'.')
+subplot(1,2,2)
+hist(X,10000)
+title('U/V')
