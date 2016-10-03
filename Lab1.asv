@@ -153,8 +153,3 @@ title('U/V')
 %%
 %4.1 Ensemble and Time Averages
 
-N=256; 
-K=N;
-
-X=randn(N,K);
-mean(X)
