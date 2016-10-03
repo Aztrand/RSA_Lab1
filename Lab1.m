@@ -157,4 +157,80 @@ N=256;
 K=N;
 
 X=randn(N,K);
-mean(X)
+EA = mean(X');
+TA = mean(X);
+figure()
+plot(EA)
+hold on
+plot(TA)
+mean(EA)
+mean(TA)
+
+%The averages do not hold the same values on each sample, however the main
+%value of both EA and TA hold s the same average value.
+
+%%
+%4.2 - Joint Dstribution and Correlation.
+
+N=256; 
+K=N;
+
+X=randn(N,K);
+plot(X(1,:),X(2,:),'.')
+sum=0;
+
+for k=1:256
+    r(k)=X(1,k).*X(2,k);
+    sum=sum+r(k);
+end
+
+r=1/K*sum;
+
+result = r - mean(X(1))*mean(X(2)) %Uncorrelated if covariance: E(XY)-E(X)*E(Y)=0
+% Result is not zero, but close to zero, which proves that the sets are
+% uncorrelated.
+
+%%
+%5.4 - Joint Distribution
+
+N=256;
+K=N;
+
+W=randn(N,K);
+x=filter(1,[1 -1],W)
+
+figure()
+plot(x)
+figure()
+subplot(2,2,1)
+plot(x(10,:),x(9,:),'.')
+title('n1=10, n2=9')
+subplot(2,2,2)
+plot(x(50,:),x(49,:),'.')
+title('n1=50, n2=49')
+subplot(2,2,3)
+plot(x(100,:),x(99,:),'.')
+title('n1=100, n2=99')
+subplot(2,2,4)
+plot(x(200,:),x(199,:),'.')
+title('n1=200, n2=199')
+
+figure()
+subplot(2,2,1)
+plot(x(50,:),x(40,:),'.')
+title('n1=50, n2=40')
+subplot(2,2,2)
+plot(x(100,:),x(90,:),'.')
+title('n1=100, n2=90')
+subplot(2,2,3)
+plot(x(200,:),x(190,:),'.')
+title('n1=200, n2=190')
+subplot(2,2,4)
+plot(x(200,:),x(190,:),'.')
+        
+%%
+%5.5 - Sample Auto-correlation
+
+
+
+

@@ -153,3 +153,51 @@ title('U/V')
 %%
 %4.1 Ensemble and Time Averages
 
+N=256; 
+K=N;
+
+X=randn(N,K);
+EA = mean(X');
+TA = mean(X);
+figure()
+plot(EA)
+hold on
+plot(TA)
+mean(EA)
+mean(TA)
+
+%The averages do not hold the same values on each sample, however the main
+%value of both EA and TA hold s the same average value.
+
+%%
+%4.2 - Joint Dstribution and Correlation.
+
+N=256; 
+K=N;
+
+X=randn(N,K);
+plot(X(1,:),X(2,:),'.')
+sum=0;
+
+for k=1:256
+    r(k)=X(1,k).*X(2,k);
+    sum=sum+r(k);
+end
+
+r=1/K*sum;
+
+result = r - mean(X(1))*mean(X(2)) %Uncorrelated if covariance: E(XY)-E(X)*E(Y)=0
+% Result is not zero, but close to zero, which proves that the sets are
+% uncorrelated.
+
+%%
+%5.4 - Joint Distribution
+
+N=256;
+K=N;
+
+W=randn(N,K);
+
+
+
+
