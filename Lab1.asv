@@ -197,7 +197,164 @@ N=256;
 K=N;
 
 W=randn(N,K);
+x=filter(1,[1 -1],W)
 
+figure()
+plot(x)
+figure()
+subplot(2,2,1)
+plot(x(10,:),x(9,:),'.')
+title('n1=10, n2=9')
+subplot(2,2,2)
+plot(x(50,:),x(49,:),'.')
+title('n1=50, n2=49')
+subplot(2,2,3)
+plot(x(100,:),x(99,:),'.')
+title('n1=100, n2=99')
+subplot(2,2,4)
+plot(x(200,:),x(199,:),'.')
+title('n1=200, n2=199')
 
+figure()
+subplot(2,2,1)
+plot(x(50,:),x(40,:),'.')
+title('n1=50, n2=40')
+subplot(2,2,2)
+plot(x(100,:),x(90,:),'.')
+title('n1=100, n2=90')
+subplot(2,2,3)
+plot(x(200,:),x(190,:),'.')
+title('n1=200, n2=190')
+subplot(2,2,4)
+plot(x(200,:),x(190,:),'.')
+        
+%%
+%5.5 - Sample Auto-correlation
 
+W=randn(N,K);
+x=filter(1,[1 -1],W)
+sum=0;
 
+for n=2:256
+    for k=1:256
+        r=x(n,k).*x(n-1,k);
+        sum=sum+r;
+    end
+    result2(n) = mean(x(n)*x(n-1));
+    result(n)=sum;
+end
+result = 1/K * result;
+
+figure()
+for n=2:256
+    subplot(1,2,1)
+    plot(result(n),result(n-1),'.')
+    title('Practical')
+    hold on
+    subplot(1,2,2)
+    plot(result2(n),result2(n-1),'.')
+    title('Theoretical')
+    hold on
+end
+
+%Check K=1 auto-correlation
+sum=0;
+for n=2:256
+        r=x(n,1).*x(n-1,1);
+        sum=sum+r;
+    result(n)=sum;
+end
+result = 1/K * result;
+
+figure()
+for n=2:256
+    plot(result(n),result(n-1),'.')
+    hold on
+end
+%O
+
+%%
+%6.3 - Joint Distribution.
+
+N=256;
+K=N;
+
+W=randn(N,K);
+x=filter(1,[1 -0.9],W)
+
+figure()
+plot(x)
+figure()
+subplot(2,2,1)
+plot(x(10,:),x(9,:),'.')
+title('n1=10, n2=9')
+subplot(2,2,2)
+plot(x(50,:),x(49,:),'.')
+title('n1=50, n2=49')
+subplot(2,2,3)
+plot(x(100,:),x(99,:),'.')
+title('n1=100, n2=99')
+subplot(2,2,4)
+plot(x(200,:),x(199,:),'.')
+title('n1=200, n2=199')
+
+figure()
+subplot(2,2,1)
+plot(x(50,:),x(40,:),'.')
+title('n1=50, n2=40')
+subplot(2,2,2)
+plot(x(100,:),x(90,:),'.')
+title('n1=100, n2=90')
+subplot(2,2,3)
+plot(x(200,:),x(190,:),'.')
+title('n1=200, n2=190')
+subplot(2,2,4)
+plot(x(200,:),x(190,:),'.')
+
+%In the 5.4 task the point with dn=10 apart did give a fair correlation,
+%however in this case with -0.9 instead of -1, n far apart gives a very bad
+%, if none, correlation and the n's need to be closer to each other.
+
+%%
+%6.4 - Sample Auto-correlation
+
+W=randn(N,K);
+x=filter(1,[1 -0.9],W)
+sum=0;
+
+for n=2:256
+    for k=1:256
+        r=x(n,k).*x(n-1,k);
+        sum=sum+r;
+    end
+    result2(n) = mean(x(n)*x(n-1));
+    result(n)=sum;
+end
+result = 1/K * result;
+
+figure()
+for n=2:256
+    subplot(1,2,1)
+    plot(result(n),result(n-1),'.')
+    title('Practical')
+    hold on
+    subplot(1,2,2)
+    plot(result2(n),result2(n-1),'.')
+    title('Theoretical')
+    hold on
+end
+
+%One realizaion
+sum=0;
+for n=2:256
+        r=x(n,1).*x(n-1,1);
+        sum=sum+r;
+    result(n)=sum;
+end
+result = 1/K * result;
+
+figure()
+for n=2:256
+    plot(result(n),result(n-1),'.')
+    hold on
+end
