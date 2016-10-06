@@ -8,10 +8,10 @@ u=rand([1 N]);
 
 figure()
 subplot(2,1,1)
-hist(x,10000)
+hist(x,100)
 title('x')
 subplot(2,1,2)
-hist(u,10000)
+hist(u,100)
 title('u')
 
 %%
@@ -21,18 +21,27 @@ x = randn([1 N]);
 y = randn([1 N]);
 
 figure()
+subplot(1,2,1)
 plot(x,y,'.') %equiprobability lines: either a circle or diagonals?
+title('Normal distribution')
+xlabel('X')
+ylabel('Y')
 
 a=sqrt(3);
 u = a*rand([1 N])
 v = a*rand([1 N])
-
-figure()
+subplot(1,2,2)
 plot(u,v,'.')
+title('Uniform distribution')
+xlabel('U')
+ylabel('V')
 %Greater variance and deviance.
 
 figure()
 plot(u,x,'.') 
+title('Mixed')
+xlabel('u')
+ylabel('x')
 %Values are spread accordingly to each distribution, making a fusion. The
 %U-dist shows a more uniformal distribution, as expected, as the normal
 %distribution tends to assign more of the mid values, as  expected. The
@@ -42,6 +51,7 @@ plot(u,x,'.')
 %%
 %2.3 Conditional Distribution
 
+N=2000;
 x = randn([1 N]);
 y = randn([1 N]);
 dy = 0.1;
@@ -53,18 +63,18 @@ Y=[];
 figure()
 for k=1:2000
     if y(k)>yh-dy && y(k)<yh+dy
-        %plot(x(k),y(k),'.')
         i=i+1;
-        %hold on
         X(i)=x(k); 
         Y(i)=y(k);
     end
 end
 subplot(1,2,1)
-plot(Y,X,'.')
+plot(X,Y,'.')
 subplot(1,2,2)
-hist(X,10000)
-title('Y/X')
+hist(X,100)
+title('Gaussian')
+xlabel('X')
+ylabel('Y')
 
 
 a=sqrt(3);
@@ -89,8 +99,10 @@ end
 subplot(1,2,1)
 plot(U,V,'.')
 subplot(1,2,2)
-hist(V,10000)
-title('U/V')
+hist(V,100)
+title('Uniform')
+xlabel('U')
+ylabel('V')
 %The plot shows the spread of values within the restricted area and
 %the hist shows the numbers of occurencies for the values of X within the
 %range of Y
@@ -111,13 +123,21 @@ zv(2,:) = z(-0.5);
 zv(3,:) = z(0.9);
 zv(4,:) = z(-0.9);
 
-for i=1:4
+alpha=([0.5 -0.5 0.9 -0.9])
     figure()
+for i=1:4
+    subplot(2,2,i)
     plot(x,zv(i,:),'.')
+    title(alpha(i))
+    xlabel('X')
+    ylabel('Z')
 end
 
 figure()
-hist(zv(1,:),10000) %Increase bins for finer gaussian.
+hist(zv(1,:),100) %Increase bins for finer gaussian.
+title('')
+xlabel('')
+ylabel('')
 
 %%
 %3.2 - Conditional Distribution.
@@ -147,7 +167,7 @@ end
 subplot(1,2,1)
 plot(Z,X,'.')
 subplot(1,2,2)
-hist(X,10000)
+hist(X,100)
 title('U/V')
 
 %%
@@ -163,8 +183,7 @@ figure()
 plot(EA)
 hold on
 plot(TA)
-mean(EA)
-mean(TA)
+diff = mean(EA)-mean(TA)
 
 %The averages do not hold the same values on each sample, however the main
 %value of both EA and TA hold s the same average value.
